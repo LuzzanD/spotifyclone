@@ -29,8 +29,7 @@ const Player: React.FC = (): JSX.Element => {
 	    if (audioRef.current.ended) {
 	      dispatch(nextSong())
 	    } else {
-	      setCurrentSongTime(audioRef.current.currentTime)
-        console.log(intervalRef.current)
+	      setCurrentSongTime(Math.floor(audioRef.current.currentTime))
 	    }
 	  }, 1000)
 	}
@@ -41,10 +40,11 @@ const Player: React.FC = (): JSX.Element => {
       startTimer()
       audioRef.current.play()
     } else {
-      clearInterval(intervalRef.current)
       audioRef.current.pause()
+      clearInterval(intervalRef.current)
     }
   }, [isPlaying])
+  
 
   // useEffect(() => {
   //   audioRef.current.pause()

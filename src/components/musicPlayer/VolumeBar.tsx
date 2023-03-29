@@ -16,7 +16,7 @@ const VolumeBar: React.FC<PropsType> = ({handleVolumeIconClick, handleVolumeBarC
   }, [volume])
 
   return (
-    <div className="flex gap-2 lg:gap-3 items-center w-[20%] md:w-[15%] justify-end">
+    <div className="flex gap-1 md:gap-2 lg:gap-3 items-center w-[20%] md:w-[15%] justify-end">
       <div className="text-xs md:text-sm lg:text-base cursor-pointer hover:scale-110" onClick={handleVolumeIconClick}>
         {
           volume === 0 ? <RxSpeakerOff /> : 

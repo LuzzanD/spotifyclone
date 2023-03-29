@@ -14,7 +14,7 @@ const SongInfo: React.FC<SongType> = ({activeSong}): JSX.Element => {
         </NavLink>
         <div className="flex flex-col w-full sm:w-[60%]">
           <NavLink to={`/song-details/${activeSong?.key}`}>
-            <h2 className="mb-1 sm:mb-0 text-[10px] xs:text-xs lg:text-base xl:text-lg text-zinc-900 hover:opacity-50 truncate max-w-fit">{activeSong.title}</h2>
+            <h2 className="mb-[2px] sm:mb-0 text-[10px] xs:text-xs lg:text-base xl:text-lg text-zinc-900 hover:opacity-50 truncate max-w-fit">{activeSong.title}</h2>
           </NavLink>
           <NavLink to={`/artist-details/${activeSong?.subtitle?.split(',')[0].split('&')[0]}`}>
             <h3 className="text-[8px] xs:text-[10px] lg:text-xs xl:text-sm text-zinc-900 hover:opacity-50 truncate max-w-fit">{activeSong.subtitle}</h3>

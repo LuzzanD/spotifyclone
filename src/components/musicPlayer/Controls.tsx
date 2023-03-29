@@ -17,14 +17,16 @@ interface ControlsType {
 const Controls: React.FC<ControlsType>= ({isPlaying, songDuration, currentSongTime, handleBackwardClick, handleForwardClick, handlePreviousClick, handleNextClick, handlePlayPause, handleSongBarChange}): JSX.Element => {
 
     const songBarRef = useRef<null | HTMLInputElement>(null)
+    const currentMinutes = currentSongTime / 60
+    const currentSeconds = currentSongTime % 60
     
     useEffect(() => {
       if (songBarRef.current) songBarRef.current.style.backgroundSize = `${currentSongTime/songDuration * 100}% 100%`
     }, [currentSongTime])
 
   return (
-    <div className='flex flex-col items-center w-[45%]'>
-      <div className="flex items-center text-zinc-900 gap-1 sm:gap-2 md:gap-3 xl:gap-5 mb-2">
+    <div className='flex flex-col items-center w-[50%] md:w-[45%]'>
+      <div className="flex items-center text-zinc-900 gap-[8px] md:gap-3 xl:gap-5 mb-2">
           <AiOutlineStepBackward 
             onClick={handlePreviousClick} 
             className="text-[12px] sm:text-[16px] md:text-[20px] lg:text-[24px] xl:text-[28px] cursor-pointer hover:opacity-70"
@@ -53,7 +55,7 @@ const Controls: React.FC<ControlsType>= ({isPlaying, songDuration, currentSongTi
         <div 
           className="text-zinc-800 text-center text-[10px] sm:text-xs lg:text-sm xl:text-base font-medium w-[40px]"
         >
-          {Math.floor(currentSongTime / 60)}:{currentSongTime % 60 < 10 ? '0' + (currentSongTime % 60).toFixed(0) : (currentSongTime % 60).toFixed(0)}
+          {Math.floor(currentMinutes)}:{currentSongTime % 60 < 10 ? '0' + (currentSeconds).toFixed(0) : (currentSeconds).toFixed(0)}
         </div>
         <input 
           ref={songBarRef} 
@@ -63,7 +65,7 @@ const Controls: React.FC<ControlsType>= ({isPlaying, songDuration, currentSongTi
           min={0} 
           max={songDuration} 
           className="range mx-0 sm:mx-2 md:mx-4"
-          onInput={handleSongBarChange}
+          onChange={handleSongBarChange}
         />
         <div 
           className="text-zinc-800 text-center text-[10px] sm:text-xs lg:text-sm xl:text-base font-medium w-[40px]"

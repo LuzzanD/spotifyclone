@@ -10,23 +10,24 @@ import Player from './components/musicPlayer/Player'
 import { useSelector } from 'react-redux'
 import { RootState } from './redux/store'
 import { useState } from 'react'
+import Hamburger from './components/Hamburger'
 
 function App() {
 
   const {isActive} = useSelector((state: RootState) => state.playerSlice)
   const [menuOpen, setMenuOpen] = useState(false)
 
+  const handleMenuClick = () => {
+    setMenuOpen(prevValue => !prevValue)
+  }
+
   return (
     <div className='flex flex-col sm:flex-row w-[100%] h-full relative'>
-      <div className={`w-[150px] h-full lg:h-auto absolute top-0 duration-300 z-10 ${menuOpen ? 'left-0 shadow-[0_30px_50px_5px_rgba(0,0,0,0.3)]' : '-left-[120px]'} lg:shadow-none lg:static lg:w-[15%] bg-zinc-100/40 backdrop-blur-xl lg:bg-zinc-300 px-4 3xl:p-6`}>
+      <div className={`w-[150px] h-full lg:h-auto absolute top-0 duration-300 z-10 ${menuOpen ? 'left-0 shadow-[0_30px_50px_5px_rgba(0,0,0,0.3)]' : '-left-[150px]'} lg:shadow-none lg:static lg:w-[15%] bg-zinc-100/40 backdrop-blur-xl lg:bg-zinc-300 px-4 3xl:p-6`}>
         <Sidebar />
       </div>
       <div className='w-full relative sm:w-[68%] lg:w-[65%] bg-zinc-200 px-4 md:px-8 pt-4 md:pt-8 pb-8 sm:pb-36'>
-        <div className='block relative z-30 lg:hidden md:-top-[15px] md:-left-[15px] mb-6 md:mb-2 hover:opacity-70' onClick={() => setMenuOpen(prevValue => !prevValue)}>
-          <div className={`w-[15px] h-[1px] bg-zinc-800 duration-300 mb-[3px] ${menuOpen ? 'rotate-45 translate-y-[4px]': 'rotate-0'}`}></div>
-          <div className={`w-[15px] h-[1px] bg-zinc-800 duration-300 ${menuOpen ? '-translate-x-[40px]' : 'translate-x-0'}`}></div>
-          <div className={`w-[15px] h-[1px] bg-zinc-800 duration-300 mt-[3px] ${menuOpen ? '-rotate-45 -translate-y-[4px]': 'rotate-0'}`}></div>
-        </div>
+        <Hamburger menuOpen={menuOpen} handleMenuClick={handleMenuClick}/>
         <Routes>
           <Route index path={'/'} element={<Discover />}/>
           <Route path={'/around-you'} element={<AroundYou />}/>
