@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useGetTopChartsByGenreQuery, useLazyGetSongsBySearchQuery} from '../redux/shazamCore/shazamCore'
 import { Error, Loader, SongCard } from '../components'
 import { Song } from '../typescript/SongType'
@@ -17,12 +17,13 @@ const Discover: React.FC = (): JSX.Element => {
   const [genre, setGenre] = useState<string>('POP')
   const [inputTerm, setInputTerm] = useState<string>('')
   const [songsData, setSongsData] = useState<Song[]>([])
+  const inputRef = useRef(null)
   
   const {data, error, isFetching} = useGetTopChartsByGenreQuery(genre)
   const [trigger, result] = useLazyGetSongsBySearchQuery()
   
   const {activeSong} = useSelector((state: RootState) => state.playerSlice)
-  
+
   useEffect(() => {
     data && setSongsData(data)
   }, [data])
@@ -37,9 +38,7 @@ const Discover: React.FC = (): JSX.Element => {
             return hit.track
         })
         setSongsData(resultArray)
-        setInputTerm('')
       }
-
   }
 
   const handleMagnifierClick = async () => {
@@ -49,9 +48,13 @@ const Discover: React.FC = (): JSX.Element => {
             return hit.track
         })
         setSongsData(resultArray)
-        setInputTerm('')
     }
   }
+
+  const handleFocus = () => {
+    if(inputRef.current) setInputTerm('')
+  }
+  
 
   return (
     <div className=''>
@@ -66,6 +69,8 @@ const Discover: React.FC = (): JSX.Element => {
             value={inputTerm}
             onChange={e => setInputTerm(e.target.value)}
             onKeyDown={handleKeyDown}
+            onFocus={handleFocus}
+            ref={inputRef}
           />
         </div>
         <div>
