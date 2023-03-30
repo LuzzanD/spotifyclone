@@ -4,7 +4,7 @@ import { RootState } from '../redux/store'
 import { useSelector } from 'react-redux'
 import { useGetTopWorldChartsQuery } from "../redux/shazamCore/shazamCore"
 
-const TopCharts = () => {
+const TopCharts: React.FC = (): JSX.Element => {
 
   const {data, error, isFetching} = useGetTopWorldChartsQuery()
   const {activeSong} = useSelector((state: RootState) => state.playerSlice)

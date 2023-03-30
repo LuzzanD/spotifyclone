@@ -6,7 +6,7 @@ interface ArtistData {
     i: number
 }
 
-const ArtistCard: React.FC<ArtistData> = ({song, i}): JSX.Element => {
+const ArtistCard: React.FC<ArtistData> = ({song}): JSX.Element => {
 
     return (
       <NavLink to={`/artist-details/${song?.subtitle?.split(',')[0].split('&')[0]}`}>

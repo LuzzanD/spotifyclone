@@ -29,7 +29,7 @@ const Player: React.FC = (): JSX.Element => {
 	    if (audioRef.current.ended) {
 	      dispatch(nextSong())
 	    } else {
-	      setCurrentSongTime(Math.floor(audioRef.current.currentTime))
+	      setCurrentSongTime(Math.ceil(audioRef.current.currentTime))
 	    }
 	  }, 1000)
 	}
@@ -120,7 +120,6 @@ const Player: React.FC = (): JSX.Element => {
   }
 
 
-  
   return (
     <div className="flex items-center py-4 px-4 md:px-6 lg:px-8 xl:px-12 w-full justify-between bg-white/20 backdrop-blur-xl shadow-[0_-20px_70px_5px_rgba(0,0,0,0.3)]">
         <SongInfo 

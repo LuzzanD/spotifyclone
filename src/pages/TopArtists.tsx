@@ -2,7 +2,7 @@ import { useGetTopWorldChartsQuery } from "../redux/shazamCore/shazamCore"
 import { Error, Loader, ArtistCard } from '../components'
 import { Song } from "../typescript/SongType"
 
-const TopArtists = () => {
+const TopArtists: React.FC = (): JSX.Element => {
 
   const {data, error, isFetching} = useGetTopWorldChartsQuery()
 

@@ -19,23 +19,23 @@ const SongDetails: React.FC = (): JSX.Element => {
   return (
     <div>
         <div className='flex mb-8'>
-            <NavLink to={`/artist-details/${activeSong?.subtitle?.split(',')[0].split('&')[0]}`}>
-                <img className='w-[120px] xs:w-[150px] hover:opacity-70 aspect-square bg-zinc-600' src={`${songData?.images?.background ? songData?.images?.background : songData?.images?.coverart}`}/>
+            <NavLink className="w-[30%]" to={`/artist-details/${activeSong?.subtitle?.split(',')[0].split('&')[0]}`}>
+                <img className='hover:opacity-70 aspect-square bg-zinc-600' src={`${songData?.images?.background ? songData?.images?.background : songData?.images?.coverart}`}/>
             </NavLink>
-            <div className='flex flex-col ml-6 xs:ml-8'>
-                <h1 className="text-2xl xs:text-4xl mb-1 xs:mb-3">{songData?.title}</h1>
+            <div className='flex w-[70%] flex-col ml-6 xs:ml-8'>
+                <h1 className="text-base xs:text-xl sm:text-2xl lg:text-4xl mb-1 xs:mb-3">{songData?.title}</h1>
                 <NavLink to={`/artist-details/${activeSong?.subtitle?.split(',')[0].split('&')[0]}`}>
-                    <h2 className="text-lg xs:text-2xl hover:opacity-50">{songData?.subtitle}</h2>
+                    <h2 className="text-xs xs:text-base sm:text-lg lg:text-2xl hover:opacity-50">{songData?.subtitle}</h2>
                 </NavLink>
             </div>
         </div>
-        <div className="mb-12">
-            <h1 className='text-xl mb-4'>Lyrics:</h1>
+        <div className="mb-4 sm:mb-8 lg:mb-12">
+            <h1 className='text-base sm:text-lg lg:text-2xl mb-2 md:mb-4'>Lyrics:</h1>
             {songData?.sections[1]?.text ?
             songData?.sections[1]?.text?.map((line: string, i: number) =>{
                 return line ? <p className='text-sm' key={i}>{line}</p> : <br key={i}/>
             }) : 
-            <p className="text-2xl">Sorry, no lyrics provided for this track.</p>
+            <p className="text-lg sm:text-xl lg:text-2xl">Sorry, no lyrics provided for this track.</p>
             }
         </div>
         <div className='flex flex-col gap-3'>

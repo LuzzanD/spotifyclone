@@ -1,8 +1,8 @@
-const Loader = () => {
+const Loader: React.FC = (): JSX.Element => {
   return (
-    <p className="text-zinc-500 w-full text-center text-lg md:text-xl lg:text-2xl absolute top-[40%]">
-      Your data is loading...
-    </p>
+    <div className=" w-full h-screen ">
+      <h2 className='text-zinc-500 w-full text-lg md:text-xl lg:text-2xl text-center absolute top-[40%]'>Your data is loading...</h2>
+    </div>
   )
 }
 

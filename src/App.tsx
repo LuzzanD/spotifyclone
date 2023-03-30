@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom'
-import { Sidebar, TopPlays } from './components/index'
+import { Sidebar, TopPlays, Hamburger } from './components/index'
 import AroundYou from './pages/AroundYou'
 import Discover from './pages/Discover'
 import TopCharts from './pages/TopCharts'
@@ -10,24 +10,20 @@ import Player from './components/musicPlayer/Player'
 import { useSelector } from 'react-redux'
 import { RootState } from './redux/store'
 import { useState } from 'react'
-import Hamburger from './components/Hamburger'
+
 
 function App() {
 
   const {isActive} = useSelector((state: RootState) => state.playerSlice)
-  const [menuOpen, setMenuOpen] = useState(false)
-
-  const handleMenuClick = () => {
-    setMenuOpen(prevValue => !prevValue)
-  }
+  const [menuOpen, setMenuOpen] = useState<boolean>(false)
 
   return (
     <div className='flex flex-col sm:flex-row w-[100%] h-full relative'>
       <div className={`w-[150px] h-full lg:h-auto absolute top-0 duration-300 z-10 ${menuOpen ? 'left-0 shadow-[0_30px_50px_5px_rgba(0,0,0,0.3)]' : '-left-[150px]'} lg:shadow-none lg:static lg:w-[15%] bg-zinc-100/40 backdrop-blur-xl lg:bg-zinc-300 px-4 3xl:p-6`}>
-        <Sidebar />
+        <Sidebar setMenuOpen={setMenuOpen}/>
       </div>
       <div className='w-full relative sm:w-[68%] lg:w-[65%] bg-zinc-200 px-4 md:px-8 pt-4 md:pt-8 pb-8 sm:pb-36'>
-        <Hamburger menuOpen={menuOpen} handleMenuClick={handleMenuClick}/>
+        <Hamburger menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>
         <Routes>
           <Route index path={'/'} element={<Discover />}/>
           <Route path={'/around-you'} element={<AroundYou />}/>

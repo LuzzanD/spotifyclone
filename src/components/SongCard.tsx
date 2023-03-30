@@ -1,6 +1,6 @@
 import { Song } from '../typescript/SongType'
 import { NavLink } from 'react-router-dom'
-import PlayPause from './PlayPause'
+import { PlayPause } from './index'
 import { useDispatch } from 'react-redux'
 import { setActiveSong, playPause, setSongsList, setSongIndex } from '../redux/features/playerSlice'
 

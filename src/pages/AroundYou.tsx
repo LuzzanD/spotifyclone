@@ -1,16 +1,16 @@
 import { useGetSongsByCountryQuery } from "../redux/shazamCore/shazamCore"
 import { Song } from "../typescript/SongType"
 import { SongCard, Error, Loader } from "../components"
-import axios from 'axios'
 import { useEffect, useState } from "react"
 import { RootState } from '../redux/store'
 import { useSelector } from 'react-redux'
+import axios from 'axios'
 
-const AroundYou = () => {
+const AroundYou: React.FC = (): JSX.Element => {
   const [country, setCountry] = useState('')
-  const {data, error, isFetching} = useGetSongsByCountryQuery('TR')
+  const {data, error, isFetching} = useGetSongsByCountryQuery(country)
 
-  const {isPlaying, activeSong} = useSelector((state: RootState) => state.playerSlice)
+  const {activeSong} = useSelector((state: RootState) => state.playerSlice)
 
   useEffect(() => {
     axios.get('https://geo.ipify.org/api/v2/country?apiKey=at_JLlnxGyXgckMDBjhHzpxIGZnshqhJ')

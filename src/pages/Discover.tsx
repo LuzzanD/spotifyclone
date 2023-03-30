@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import { useGetTopChartsByGenreQuery, useGetSongsBySearchQuery, useLazyGetSongsBySearchQuery} from '../redux/shazamCore/shazamCore'
+import { useGetTopChartsByGenreQuery, useLazyGetSongsBySearchQuery} from '../redux/shazamCore/shazamCore'
 import { Error, Loader, SongCard } from '../components'
 import { Song } from '../typescript/SongType'
 import { genres } from '../assets/constants'
 import { RootState } from '../redux/store'
 import { useSelector } from 'react-redux'
 import { HitType } from './ArtistDetails'
+import { SlMagnifier } from 'react-icons/sl'
 
 interface Genre {
   title: string,
@@ -26,36 +27,51 @@ const Discover: React.FC = (): JSX.Element => {
     data && setSongsData(data)
   }, [data])
 
-  if(isFetching) return <Loader />
   if(error) return <Error />
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if(e.key === 'Enter') {
-      const searchData = await trigger(inputTerm)
-      const resultArray = searchData.data.tracks.hits.map((hit: HitType) => {
-          return hit.track
-      })
-      setSongsData(resultArray)
-      setInputTerm('')
+    if(inputTerm)
+      if(e.key === 'Enter') {
+        const searchData = await trigger(inputTerm)
+        const resultArray = searchData.data.tracks.hits.map((hit: HitType) => {
+            return hit.track
+        })
+        setSongsData(resultArray)
+        setInputTerm('')
+      }
+
+  }
+
+  const handleMagnifierClick = async () => {
+    if(inputTerm){
+        const searchData = await trigger(inputTerm)
+        const resultArray = searchData.data.tracks.hits.map((hit: HitType) => {
+            return hit.track
+        })
+        setSongsData(resultArray)
+        setInputTerm('')
     }
   }
 
   return (
     <div className=''>
-      <div className='flex flex-col xs:flex-row justify-around gap-4'>
-        <input
-          type='text'
-          name='genre'
-          placeholder='Search for songs or artists'
-          className='h-[26px] sm:h-[30px] lg:h-[36px] text-sm px-4 lg:px-8 outline-none w-full xs:w-[80%] rounded-sm'
-          value={inputTerm}
-          onChange={e => setInputTerm(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
+      <div className='flex flex-col w-full xs:flex-row justify-around gap-2 sm:gap-4 2xl:gap-8'>
+        <div className='flex gap-1 w-full h-[26px] sm:h-[30px] lg:h-[36px]'>
+          <SlMagnifier onClick={handleMagnifierClick} className="bg-white cursor-pointer w-[7%] sm:w-[8%] 2xl:w-[5%] h-full py-[0.5em] sm:py-[0.6em] hover:opacity-50"/>
+          <input
+            type='text'
+            name='genre'
+            placeholder='Search for songs or artists'
+            className='text-sm px-4 lg:px-6 outline-none w-[93%] rounded-sm hover:opacity-50 focus:opacity-50'
+            value={inputTerm}
+            onChange={e => setInputTerm(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
         <div>
           <select
             value={genre}
-            className='h-[26px] sm:h-[30px] lg:h-[36px] text-xs lg:text-sm px-3 w-full rounded-sm outline-none cursor-pointer'
+            className='h-[26px] sm:h-[30px] lg:h-[36px] w-full text-zinc-600 text-xs lg:text-sm px-3 rounded-sm outline-none cursor-pointer hover:opacity-50'
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setGenre(e.target.value)}
           >
             {genres.map((genre: Genre) => {
@@ -71,19 +87,22 @@ const Discover: React.FC = (): JSX.Element => {
           </select>
         </div>
       </div>
-      <div className='flex flex-wrap gap-4 mt-8 items-center justify-center'>
-        {(songsData)?.map((song: Song, i: number) => {
-          return (
-            <SongCard 
-              activeSong={activeSong} 
-              key={song.key} 
-              song={song} 
-              songsData={songsData}
-              index={i}
-            />
-          )
-        })}
-      </div>
+      {isFetching ? 
+        <Loader /> :
+        <div className='flex flex-wrap gap-4 mt-8 items-center justify-center'>
+          {(songsData)?.map((song: Song, i: number) => {
+            return (
+              <SongCard 
+                activeSong={activeSong} 
+                key={song.key} 
+                song={song} 
+                songsData={songsData}
+                index={i}
+              />
+            )
+          })}
+        </div> 
+      }
     </div>
   )
 }
