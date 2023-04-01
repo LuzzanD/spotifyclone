@@ -18,8 +18,8 @@ const AroundYou: React.FC = (): JSX.Element => {
         .catch(error => console.error(error))
   }, [])
 
-  if(isFetching) return <Loader />
   if(error) return <Error />
+  if(isFetching) return <Loader />
 
   return (
     <div>

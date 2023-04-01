@@ -13,8 +13,8 @@ const SongDetails: React.FC = (): JSX.Element => {
   const {data: songData, error, isFetching: isFetchingSongData} = useGetSongDetailsQuery(songId)
   const {data: relatedSongsData, isFetching} = useGetRelatedSongsQuery(songId)
 
-  if(isFetchingSongData || isFetching) return <Loader />
   if(error) return <Error />
+  if(isFetchingSongData || isFetching) return <Loader />
 
   return (
     <div>

@@ -29,6 +29,7 @@ const Discover: React.FC = (): JSX.Element => {
   }, [data])
 
   if(error) return <Error />
+  if(isFetching) return <Loader />
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if(inputTerm)
@@ -55,9 +56,8 @@ const Discover: React.FC = (): JSX.Element => {
     if(inputRef.current) setInputTerm('')
   }
   
-
   return (
-    <div className=''>
+    <div>
       <div className='flex flex-col w-full xs:flex-row justify-around gap-2 sm:gap-4 2xl:gap-8'>
         <div className='flex gap-1 w-full h-[26px] sm:h-[30px] lg:h-[36px]'>
           <SlMagnifier onClick={handleMagnifierClick} className="bg-white cursor-pointer w-[7%] sm:w-[8%] 2xl:w-[5%] h-full py-[0.5em] sm:py-[0.6em] hover:opacity-50"/>
@@ -92,22 +92,19 @@ const Discover: React.FC = (): JSX.Element => {
           </select>
         </div>
       </div>
-      {isFetching ? 
-        <Loader /> :
-        <div className='flex flex-wrap gap-4 mt-8 items-center justify-center'>
-          {(songsData)?.map((song: Song, i: number) => {
-            return (
-              <SongCard 
-                activeSong={activeSong} 
-                key={song.key} 
-                song={song} 
-                songsData={songsData}
-                index={i}
-              />
-            )
-          })}
-        </div> 
-      }
+      <div className='flex flex-wrap gap-4 mt-8 items-center justify-center'>
+        {(songsData)?.map((song: Song, i: number) => {
+          return (
+            <SongCard 
+              activeSong={activeSong} 
+              key={song.key} 
+              song={song} 
+              songsData={songsData}
+              index={i}
+            />
+          )
+        })}
+      </div> 
     </div>
   )
 }

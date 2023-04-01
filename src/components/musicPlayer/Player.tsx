@@ -22,6 +22,13 @@ const Player: React.FC = (): JSX.Element => {
   const intervalRef = useRef<number>()
   const isReady = useRef<boolean>()
 
+  useEffect(() => {
+    return () => {
+      audioRef.current.pause();
+      clearInterval(intervalRef.current);
+    }
+  }, [])
+
 
   const startTimer = () => {
 	  clearInterval(intervalRef.current)

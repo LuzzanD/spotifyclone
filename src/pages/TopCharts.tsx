@@ -9,8 +9,8 @@ const TopCharts: React.FC = (): JSX.Element => {
   const {data, error, isFetching} = useGetTopWorldChartsQuery()
   const {activeSong} = useSelector((state: RootState) => state.playerSlice)
 
-  if(isFetching) return <Loader />
   if(error) return <Error />
+  if(isFetching) return <Loader />
 
   return (
     <div>
