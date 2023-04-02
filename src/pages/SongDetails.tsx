@@ -13,16 +13,16 @@ const SongDetails: React.FC = (): JSX.Element => {
   const {data: songData, error, isFetching: isFetchingSongData} = useGetSongDetailsQuery(songId)
   const {data: relatedSongsData, isFetching} = useGetRelatedSongsQuery(songId)
 
-  if(error) return <Error />
   if(isFetchingSongData || isFetching) return <Loader />
+  if(error) return <Error />
 
   return (
     <div>
         <div className='flex mb-8'>
-            <NavLink className="w-[30%]" to={`/artist-details/${activeSong?.subtitle?.split(',')[0].split('&')[0]}`}>
+            <NavLink className="w-[20%]" to={`/artist-details/${activeSong?.subtitle?.split(',')[0].split('&')[0]}`}>
                 <img className='hover:opacity-70 aspect-square bg-zinc-600' src={`${songData?.images?.background ? songData?.images?.background : songData?.images?.coverart}`}/>
             </NavLink>
-            <div className='flex w-[70%] flex-col ml-6 xs:ml-8'>
+            <div className='flex w-[70%] flex-col ml-4 sm:ml-8 xl:ml-12'>
                 <h1 className="text-base xs:text-xl sm:text-2xl lg:text-4xl mb-1 xs:mb-3">{songData?.title}</h1>
                 <NavLink to={`/artist-details/${activeSong?.subtitle?.split(',')[0].split('&')[0]}`}>
                     <h2 className="text-xs xs:text-base sm:text-lg lg:text-2xl hover:opacity-50">{songData?.subtitle}</h2>

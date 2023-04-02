@@ -6,8 +6,8 @@ const TopArtists: React.FC = (): JSX.Element => {
 
   const {data, error, isFetching} = useGetTopWorldChartsQuery()
 
-  if(error) return <Error />
   if(isFetching) return <Loader />
+  if(error) return <Error />
 
   return (
     <div>

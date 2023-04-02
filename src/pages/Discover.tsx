@@ -28,8 +28,8 @@ const Discover: React.FC = (): JSX.Element => {
     data && setSongsData(data)
   }, [data])
 
-  if(error) return <Error />
   if(isFetching) return <Loader />
+  if(error) return <Error />
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if(inputTerm)
