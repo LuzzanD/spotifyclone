@@ -23,7 +23,7 @@ function App() {
         <Sidebar setMenuOpen={setMenuOpen}/>
       </div>
       <div className='w-full relative sm:w-[68%] lg:w-[65%] bg-zinc-200 px-4 md:px-8 pt-4 md:pt-8 pb-8 sm:pb-36'>
-        <div className="w-fit">
+        <div className="w-fit block relative z-30 lg:hidden md:-top-[15px] md:-left-[15px] mb-6 md:mb-2">
           <Hamburger menuOpen={menuOpen} setMenuOpen={setMenuOpen}/>
         </div>
         <Routes>

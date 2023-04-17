@@ -19,15 +19,15 @@ const Discover: React.FC = (): JSX.Element => {
   const [songsData, setSongsData] = useState<Song[]>([])
   const inputRef = useRef(null)
   
-  const {data, error, isFetching} = useGetTopChartsByGenreQuery(genre)
+  const {data, error, isFetching, isLoading} = useGetTopChartsByGenreQuery(genre)
   const [trigger, result] = useLazyGetSongsBySearchQuery()
   
   const {activeSong} = useSelector((state: RootState) => state.playerSlice)
-
+  
   useEffect(() => {
     data && setSongsData(data)
   }, [data])
-
+  
   if(isFetching) return <Loader />
   if(error) return <Error />
 
@@ -93,7 +93,7 @@ const Discover: React.FC = (): JSX.Element => {
         </div>
       </div>
       <div className='flex flex-wrap gap-4 mt-8 items-center justify-center'>
-        {(songsData)?.map((song: Song, i: number) => {
+        {songsData?.map((song: Song, i: number) => {
           return (
             <SongCard 
               activeSong={activeSong} 

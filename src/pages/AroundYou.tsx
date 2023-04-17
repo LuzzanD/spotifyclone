@@ -8,16 +8,15 @@ import axios from 'axios'
 
 const AroundYou: React.FC = (): JSX.Element => {
   const [country, setCountry] = useState('')
-  const {data, error, isFetching} = useGetSongsByCountryQuery(country)
+  const {data, error, isFetching, isLoading} = useGetSongsByCountryQuery(country)
 
   const {activeSong} = useSelector((state: RootState) => state.playerSlice)
 
   useEffect(() => {
     axios.get('https://geo.ipify.org/api/v2/country?apiKey=at_JLlnxGyXgckMDBjhHzpxIGZnshqhJ')
         .then(response => {
-          response.data.location.country === 'RS' ? 
-          setCountry('HR') :
-          setCountry(response.data.location.country)
+          if (response.data.location.country === 'RS') setCountry('HR') 
+          else setCountry(response.data.location.country)
         })
         .catch(error => console.error(error))
   }, [])
