@@ -35,7 +35,7 @@ function App() {
           <Route path={'/song-details/:songId'} element={<SongDetails />}/>
         </Routes>
       </div>
-      <div className='w-full pb-28 sm:pb-0 sm:w-[32%] lg:w-[25%] 2xl:w-[20%] bg-zinc-300 px-4 sm:p-3'>
+      <div className='w-full pb-28 sm:pb-0 sm:w-[32%] lg:w-[25%] 2xl:w-[20%] bg-zinc-300 px-4 sm:p-3 relative'>
         <TopPlays />
       </div>
       <div className={`${isActive ? 'block' : 'hidden'} fixed bottom-0 left-0 right-0 z-20`}>

@@ -19,17 +19,17 @@ const Discover: React.FC = (): JSX.Element => {
   const [songsData, setSongsData] = useState<Song[]>([])
   const inputRef = useRef(null)
   
-  const {data, error, isFetching, isLoading} = useGetTopChartsByGenreQuery(genre)
+  const {data, error, isFetching} = useGetTopChartsByGenreQuery(genre)
   const [trigger, result] = useLazyGetSongsBySearchQuery()
   
-  const {activeSong} = useSelector((state: RootState) => state.playerSlice)
+  const { activeSong } = useSelector((state: RootState) => state.playerSlice)
   
   useEffect(() => {
-    data && setSongsData(data)
+    if(data) setSongsData(data)
   }, [data])
   
-  if(isFetching) return <Loader />
-  if(error) return <Error />
+  if(isFetching || result.isFetching) return <Loader />
+  if(error || result.error) return <Error />
 
   const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if(inputTerm)
