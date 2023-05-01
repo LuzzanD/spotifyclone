@@ -21,7 +21,7 @@ const Controls: React.FC<ControlsType>= ({isPlaying, songDuration, currentSongTi
     const currentSeconds = currentSongTime % 60
     
     useEffect(() => {
-      if (songBarRef.current) songBarRef.current.style.backgroundSize = `${currentSongTime/songDuration * 100}%`
+      if (songBarRef.current) songBarRef.current.style.backgroundSize = `${currentSongTime === 0 ? 0 : currentSongTime/songDuration * 100}%`
     }, [currentSongTime])
 
   return (
